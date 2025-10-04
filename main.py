@@ -1,29 +1,26 @@
-from telegram.ext import Updater, MessageHandler, Filters
+from aiogram import Bot, Dispatcher, types
+from aiogram.utils import executor
 
 TOKEN = "8285404814:AAEjJgHYcgW_11EbKzIfHmRMBSFGsAEW5r0"
 
-def handle_message(update, context):
-    text = update.message.text.lower()
-    keywords = [
-        "как получить плейлист",
-        "дайте плейлист",
-        "я хочу плейлист",
-        "я хочу получить плейлист"
-    ]
-    
-    if any(phrase in text for phrase in keywords):
-        update.message.reply_text(
-            "Уважаемый подписчик! Все сервисы с плейлистами находятся в главном меню в разделе «Каналы» 👉 t.me/polzafre/22"
-        )
+bot = Bot(token=TOKEN)
+dp = Dispatcher(bot)
 
-def main():
-    updater = Updater(TOKEN, use_context=True)
-    dp = updater.dispatcher
+KEYWORDS = [
+    "как получить плейлист",
+    "дайте плейлист",
+    "я хочу плейлист",
+    "я хочу получить плейлист"
+]
 
-    dp.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_message))
+REPLY = (
+    "Уважаемый подписчик! Все сервисы с плейлистами находятся "
+    "в главном меню в разделе «Каналы» — https://t.me/polzafre/22"
+)
 
-    updater.start_polling()
-    updater.idle()
+@dp.message_handler(lambda message: any(k in message.text.lower() for k in KEYWORDS))
+async def send_playlist_info(message: types.Message):
+    await message.reply(REPLY)
 
 if __name__ == "__main__":
-    main()
+    executor.start_polling(dp, skip_updates=True)
