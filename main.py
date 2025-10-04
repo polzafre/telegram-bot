@@ -1,7 +1,7 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
 
-TOKEN = "ТОКЕН_ТВОЕГО_БОТА"  # вставь сюда свой токен
+TOKEN = "ТОКЕН_ТВОЕГО_БОТА"  # 8285404814:AAEjJgHYcgW_11EbKzIfHmRMBSFGsAEW5r0
 
 KEYWORDS = [
     "как получить плейлист",
