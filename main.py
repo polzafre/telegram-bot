@@ -1,27 +1,29 @@
-from telegram import Update
-from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
+from telegram.ext import Updater, MessageHandler, Filters
 
 TOKEN = "8285404814:AAEjJgHYcgW_11EbKzIfHmRMBSFGsAEW5r0"
 
-KEYWORDS = [
-    "как получить плейлист",
-    "дайте плейлист",
-    "я хочу плейлист",
-    "я хочу получить плейлист"
-]
+def handle_message(update, context):
+    text = update.message.text.lower()
+    keywords = [
+        "как получить плейлист",
+        "дайте плейлист",
+        "я хочу плейлист",
+        "я хочу получить плейлист"
+    ]
+    
+    if any(phrase in text for phrase in keywords):
+        update.message.reply_text(
+            "Уважаемый подписчик! Все сервисы с плейлистами находятся в главном меню в разделе «Каналы» 👉 t.me/polzafre/22"
+        )
 
-REPLY_MESSAGE = (
-    "Уважаемый подписчик! Все сервисы с плейлистами находятся в главном меню "
-    "в разделе «Каналы» t.me/polzafre/22"
-)
+def main():
+    updater = Updater(TOKEN, use_context=True)
+    dp = updater.dispatcher
 
-async def reply_to_keywords(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    message = update.message.text.lower()
-    if any(keyword in message for keyword in KEYWORDS):
-        await update.message.reply_text(REPLY_MESSAGE)
+    dp.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_message))
 
-app = ApplicationBuilder().token(TOKEN).build()
-app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, reply_to_keywords))
+    updater.start_polling()
+    updater.idle()
 
-print("Бот запущен...")
-app.run_polling()
+if __name__ == "__main__":
+    main()
