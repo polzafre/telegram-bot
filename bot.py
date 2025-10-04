@@ -14,8 +14,8 @@ import urllib.request
 import urllib.parse
 
 # --- Настройки: либо запиши токен сюда, либо установи переменную окружения TG_BOT_TOKEN ---
-TOKEN = os.environ.get("TG_BOT_TOKEN") or "REPLACE_WITH_YOUR_TOKEN"
-if TOKEN == "REPLACE_WITH_YOUR_TOKEN":
+TOKEN = os.environ.get("TG_BOT_TOKEN") or "8285404814:AAEjJgHYcgW_11EbKzIfHmRMBSFGsAEW5r0"
+if TOKEN == "8285404814:AAEjJgHYcgW_11EbKzIfHmRMBSFGsAEW5r0":
     print("ERROR: Установите токен в переменной окружения TG_BOT_TOKEN или вставьте токен в файл.")
     sys.exit(1)
 
